@@ -13,11 +13,11 @@ Installation and Usage
     Download latest release (see below) and install via normal .deb install process
     If your linux distro does not support .deb, you can always clone the repo and manually install the binary and 
     icon. Place binary in /usr/local/bin and the icon in /usr/share/applications.
-        App can be executed straight from menu->administration->cleaner or in terminal with cleaner. Since there is
+        App can be executed straight from menu->administration->cleaner or in terminal with `cleaner`. Since there is
         a password prompt, there is no need to execute with sudo.
 
 **Releases are in .deb format.**
-Download the latest release here **INSERT URL**
+Download the latest release here https://github.com/TeamFahQ/Cleaner/tree/master/releases
 
-Please don't hesitate to post any issues. For features and suggestions, you can use the issues but add 
-"[FEATURE REQUST]" to your title.
+Please don't hesitate to post any issues. For features and suggestions, you can use the issues but please add 
+**[FEATURE REQUST]** to your title.
