@@ -19,8 +19,9 @@ cache () {
 	sudo rm -rf /root/.local/share/Trash/*/** &> /dev/null 2>&1
 	# Cleaning temp and cahce files
 	sudo rm -rf /tmp/* &> /dev/null
+	sudo rm -rf /var/tmp/* &> /dev/null
+	sudo rm -rf /var/lib/flatpak/repo/tmp/* &> /dev/null
 	rm -rf /home/*/.cache/*
-    rm -rf /home/thomas/.config/OpenRGB/logs/*
 }
 
 ## gvfsd
