@@ -1,0 +1,11 @@
+0d02b22 Thomas Raines 2023-12-06 Adding changelog.mk
+74c9106 Thomas Raines 2023-12-06 v1.3:finalizing rework
+ab2da8e Thomas Raines 2023-12-06 A little more rework
+03526a8 Thomas Raines 2023-12-06 Adding version...not sure why I didn't already do this
+13c3463 Thomas Raines 2023-12-06 A little rework that I did a while ago but forgot to update
+55b1f0a Thomas Raines 2023-01-23 Removed absolute path
+772b8a7 Thomas Raines 2023-01-03 Rename script dir to source. It just looks better
+923967f Thomas Raines 2022-12-17 Removing release temporarily due to accidentally including extra files during packaging
+926e8f2 traines 2022-12-02 Update README.md
+682dbb9 Thomas Raines 2022-12-02 README: adding initial README
+1d6d6ee Thomas Raines 2022-12-02 Linux cleaner
