@@ -1,0 +1,11 @@
+#!/bin/bash
+
+shc -f cleaner 
+
+pack=/media/thomas/Dev/applications/Cleaner/cleaner/usr/local/bin
+cp cleaner.x $pack/cleaner
+rm *.x.c
+rm *.x
+
+cd /media/thomas/Dev/applications/Cleaner
+dpkg-deb --build --root-owner-group cleaner
