@@ -8,4 +8,5 @@ rm *.x.c
 rm *.x
 
 cd /media/thomas/Dev/applications/Cleaner
-dpkg-deb --build --root-owner-group cleaner
+dpkg-deb --build --root-owner-group cleaner cleaner_1.0
+mv *.deb Releases 
