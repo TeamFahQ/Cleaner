@@ -1,0 +1,116 @@
+#!/bin/bash
+
+# Create log file
+log=~/cleaner.log
+
+ans=$(zenity --icon-name=apparmor_delete_profile --info --title "System Cleaner by Thomas R" --text \
+"What cleaner do you wish to run?" --extra-button="Full" --extra-button="Cache" --extra-button="GVFSD" \
+--extra-button="Ram" --extra-button="Trim" --extra-button="Quick" --ok-label="Cancel" --width=250);
+
+## Cache
+cache () {
+	echo "     Cache Results" >> $log
+	# Cleaning apt-get cache old config files and uninstalling old bits
+    echo $pass | sudo -S ls /tmp > /dev/null 2>&1
+	sudo apt clean -y >> $log
+	sudo apt autoremove -y >> $log
+	# Emptying all trashes
+	sudo rm -rf /home/*/.local/share/Trash/*/** &> /dev/null 2>&1
+	sudo rm -rf /root/.local/share/Trash/*/** &> /dev/null 2>&1
+	# Cleaning temp and cahce files
+	sudo rm -rf /tmp/* &> /dev/null
+	sudo rm -rf /var/tmp/* &> /dev/null
+	sudo rm -rf /var/lib/flatpak/repo/tmp/* &> /dev/null
+	rm -rf /home/*/.cache/*
+}
+
+## gvfsd
+gvfsd () {
+	echo "     GVFSD Flush Results" >> $log
+	cd ~/.local/share
+	ls ~/.local/share/gvfs-metadata|grep '.log\|label*\|mtp*\|uuid*' >> $log
+	find . -name "*.log" -delete
+	find . -name "label*" -delete
+	find . -name "mtp*" -delete
+	find . -name "uuid*" -delete
+	ps cax | grep gvfsd-metadata > /dev/null 2>&1
+	killall gvfsd-metadata
+	ps cax | grep gvfsd-recent > /dev/null 2>&1
+	killall gvfsd-recent
+	ps cax | grep gvfsd-trash > /dev/null 2>&1
+	killall gvfsd-trash
+}
+
+## Quick clean (No Root)
+quick () {
+	echo "     Cache Results" >> $log
+	# Emptying all trashes
+	sudo rm -rf /home/*/.local/share/Trash/*/** &> /dev/null 2>&1
+	sudo rm -rf /root/.local/share/Trash/*/** &> /dev/null 2>&1
+	# Cleaning temp and cache files
+	rm -rf /home/*/.cache/*
+	gvfsd
+}
+
+## Ram
+ram () {
+	echo "     Ram Results" >> $log
+    echo $pass | sudo -S ls /tmp > /dev/null 2>&1
+    echo "Before" >> $log
+    grep MemFree /proc/meminfo|cut -c17-27 >> $log
+	sudo sh -c 'echo 3 > /proc/sys/vm/drop_caches'
+    echo "After" >> $log
+    grep MemFree /proc/meminfo|cut -c17-27 >> $log
+}
+
+## Trim
+trim () {
+	echo "     Trim Results" >> $log
+    echo $pass | sudo -S ls /tmp > /dev/null 2>&1
+	sudo fstrim -av >> $log
+}
+
+## Full cleaner
+full () {
+	cache
+	gvfsd
+	ram
+	trim
+}
+
+if [[ $ans == Cache ]]; then
+    pass=$(zenity --password --title="sudo password prompt" --timeout=10);
+elif [[ $ans == Ram ]]; then
+    pass=$(zenity --password --title="sudo password prompt" --timeout=10);
+elif [[ $ans == Trim ]]; then
+    pass=$(zenity --password --title="sudo password prompt" --timeout=10);
+elif [[ $ans == Full ]]; then
+    pass=$(zenity --password --title="sudo password prompt" --timeout=10);
+fi
+
+if [[ $ans == Cache ]]; then
+	cache | zenity --title="Cleaner" --text="Cleaning Cache" --progress --pulsate --auto-close --auto-kill
+elif [[ $ans == GVFSD ]]; then
+	gvfsd | zenity --title="Cleaner" --text="Flushing GVFSD" --progress --pulsate --auto-close --auto-kill
+elif [[ $ans == Quick ]]; then
+	quick | zenity --title="Cleaner" --text="Quick Cleaning" --progress --pulsate --auto-close --auto-kill
+elif [[ $ans == Ram ]]; then
+	ram | zenity --title="Cleaner" --text="Dumping Ram Cache" --progress --pulsate --auto-close --auto-kill
+elif [[ $ans == Trim ]]; then
+	trim | zenity --title="Cleaner" --text="Trimming SSDs" --progress --pulsate --auto-close --auto-kill
+elif [[ $ans == Full ]]; then
+	full | zenity --title="Cleaner" --text="Full Cleaning" --progress --pulsate --auto-close --auto-kill
+fi
+
+if [[ $ans == Full ]]; then
+    zenity --title="Cleaning Successful" --text-info --filename=$log --width=450 --height=475; rm $log; exit; fi
+if [[ $ans == Cache ]]; then
+    zenity --title="Cleaning Successful" --text-info --filename=$log; rm $log; exit; fi
+if [[ $ans ==  GVFSD ]]; then
+    zenity --title="Cleaning Successful" --text-info --filename=$log; rm $log; exit; fi
+if [[ $ans ==  Quick ]]; then
+    zenity --title="Cleaning Successful" --text-info --filename=$log; rm $log; exit; fi
+if [[ $ans ==  Ram ]]; then
+    zenity --title="Cleaning Successful" --text-info --filename=$log; rm $log; exit; fi
+if [[ $ans ==  Trim ]]; then
+    zenity --title="Cleaning Successful" --text-info --filename=$log; rm $log; exit; fi

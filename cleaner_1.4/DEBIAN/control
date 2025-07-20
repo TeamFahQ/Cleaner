@@ -1,0 +1,5 @@
+Package: Cleaner
+Version: 1.4
+Architecture: amd64
+Maintainer: Thomas R
+Description: A simple cleaner designed to help keep your pc clean. It removes cache/temp and GVFSD files, performs autoremove with apt on old files/programs, performs trim on mount drives, and flushes ram/memory.
