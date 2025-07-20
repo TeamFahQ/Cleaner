@@ -3,7 +3,7 @@
 # Create log file
 log=~/cleaner.log
 
-ans=$(zenity --icon-name=apparmor_delete_profile --info --title "System Cleaner by Thomas R" --text \
+ans=$(zenity --icon=apparmor_delete_profile --info --title "System Cleaner by Thomas R" --text \
 "What cleaner do you wish to run?" --extra-button="Full" --extra-button="Cache" --extra-button="GVFSD" \
 --extra-button="Ram" --extra-button="Trim" --extra-button="Quick" --ok-label="Cancel" --width=250);
 

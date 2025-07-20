@@ -1,0 +1,14 @@
+#!/bin/bash
+
+#shc -f lzkm 
+#shc -f lzkmconfig
+
+pack=/media/thomas/Dev/applications/Cleaner/cleaner_1.4/usr/local/bin
+cp cleaner $pack/cleaner
+
+#rm *.x.c
+#rm *.x
+
+cd /media/thomas/Dev/applications/Cleaner
+dpkg-deb --build --root-owner-group cleaner_1.4
+mv *.deb releases 
