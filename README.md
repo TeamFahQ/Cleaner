@@ -21,3 +21,8 @@ Download the latest release here https://github.com/TeamFahQ/Cleaner/tree/master
 
 Please don't hesitate to post any issues. For features and suggestions, you can use the issues but please add 
 **[FEATURE REQUST]** to your title.
+
+NOTE:
+Due to random errors like this:
+cleaner: ��3~�R�/4!
+Switch from binary to script version.
